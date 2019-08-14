@@ -11,10 +11,10 @@
     <h1>Bienvenu sur une api Facture</h1>
 </head>
 <body>
-<a href="http://localhost/apiFacture/facture/read.php" target="read"><input class="favorite styled"
+<a href="http://localhost/apiFacture/Facture/read.php"><input class="favorite styled"
        type="button"
        value="Voir les factures"></a>
-<a href="http://127.0.0.1/apiFacture/fournisseur/read.php" target="read"><input class="favorite styled"
+<a href="http://127.0.0.1/apiFacture/Fournisseur/read.php"><input class="favorite styled"
        type="button"
        value="Voir les fournisseurs"></a>
 </body>

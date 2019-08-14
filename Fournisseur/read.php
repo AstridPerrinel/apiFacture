@@ -11,7 +11,7 @@
     <h1>Voici l'ensemble des fournisseurs</h1>
 </head>
 <body>
-<?php
+/*<?php
 // required header
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -76,6 +76,6 @@ else{
 
 
 }
-?>
+?>*/
 </body>
 </html>
