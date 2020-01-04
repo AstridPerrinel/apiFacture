@@ -1,4 +1,5 @@
 <?php
+session_start();
 // required headers
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -26,7 +27,7 @@ $stmt = $facture->search($keywords);
  
     // factures array
     $factures_arr=array();
-    $factures_arr["records"]=array();
+    $factures_arr["Enregistrements"]=array();
  
     // retrieve our table contents
     // fetch() is faster than fetchAll()
@@ -35,20 +36,24 @@ $stmt = $facture->search($keywords);
         extract($row);
  
         $facture_item=array(
-            "idFact" => $idFact,
-            "dateFact" => $dateFact,
-            "idFournisseur" => $idFournisseur
+            "identifiant" => $idFact,
+            "Date" => $dateFact,
+            "Fournisseur" => $idFournisseur
         );
  
-        array_push($factures_arr["records"], $facture_item);
+        array_push($factures_arr["Enregistrements"], $facture_item);
     }
- if (count($factures_arr["records"])>0){
+ if (count($factures_arr["Enregistrements"])>0){
     // set response code - 200 OK
     http_response_code(200);
- 
+    //echo json_encode($factures_arr);
+    $_SESSION["fournisseur"]=json_encode($factures_arr);
+    header("Location: http://localhost/apiFacture/facture/affichageS.php");
+    exit();
     // show factures data
-    echo json_encode($factures_arr);
- }
+    //echo json_encode($factures_arr);
+
+}
  else{
 
     // set response code - 404 Not found

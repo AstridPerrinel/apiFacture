@@ -31,10 +31,9 @@ if($num>0){
         extract($row);
  
         $facture_item=array(
-            "Facture n°" => $idFact,
-            "Date de la facture" => $dateFact,
-            "Identifiant du fournisseur" => $idFournisseur
-    
+            "identifiant" => $idFact,
+            "Date" => $dateFact,
+            "Fournisseur" => $idFournisseur
         );
  
         array_push($factures_arr["Enregistrements"], $facture_item);
@@ -47,7 +46,6 @@ if($num>0){
     echo json_encode($factures_arr);
     
 }
- 
 // no Factures found will be here
 else{
  
@@ -59,3 +57,4 @@ else{
         array("message" => "Pas de factures trouvé.")
     );
 }
+?>

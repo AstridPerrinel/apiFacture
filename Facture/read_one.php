@@ -1,4 +1,5 @@
 <?php
+session_start();
 // required headers
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: access");
@@ -25,25 +26,32 @@ $facture->readOne();
  
 if($facture->dateFact!=null){
     // create array
-    $facture_arr = array(
-        "idFact" =>  $facture->idFact,
-        "dateFact" => $facture->dateFact,
-        "idFournisseur" => $facture->idFournisseur
+    $facture_arr["Enregistrements"]=array();
+    $facture_item = array(
+        "identifiant" =>  $facture->idFact,
+        "Date" => $facture->dateFact,
+        "Fournisseur" => $facture->idFournisseur
  
     );
- 
+    array_push($facture_arr["Enregistrements"], $facture_item);
     // set response code - 200 OK
-    http_response_code(200);
- 
+
     // make it json format
-    echo json_encode($facture_arr);
+    //echo json_encode($facture_arr);
+
+    $code = 200;
+    $data = $facture_arr;
 }
  
 else{
     // set response code - 404 Not found
-    http_response_code(404);
- 
-    // tell the user facture does not exist
-    echo json_encode(array("message" => "La facture n'existe pas"));
+    $code = 404;
+    $data = array("message" => "La facture n'existe pas");
+
 }
+
+http_response_code($code);
+$_SESSION["facture"]=json_encode($data);
+header("Location: http://localhost/apiFacture/facture/affichageRO.php");
+exit();
 ?>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 // required headers
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -18,30 +19,33 @@ $db = $database->getConnection();
 $facture = new Facture($db);
  
 // get id of facture to be edited
-$data = json_decode(file_get_contents("php://input"));
+//$data = json_decode(file_get_contents("php://input"));
  
 // set ID property of facture to be edited
 $facture->idFact = $data->idFact;
  
 // set facture property values
-$facture->idFact = $data->idFact;
-$facture->dateFact = $data->dateFact;
-$facture->idFournisseur = $data->idFournisseur;
+$facture->idFact = $_POST['idFact'];
+$facture->dateFact = $_POST['dateFact'];
+$facture->idFournisseur = $_POST['idFournisseur'];
  
 // update the facture
 
 try {
     if($facture->update()) {
         // set response code - 200 ok
-        http_response_code(200);
+        //http_response_code(200);
         
         // tell the user
-        echo json_encode(array("message" => "facture a ete modifie"));
-
+        //echo json_encode(array("message" => "facture a ete modifie"));
+        $code = 200;
+        $data = "La facture a ete modifie.";
     } else {
-        http_response_code(404);
+        //http_response_code(404);
 
-        echo json_encode(array("message" => "facture non trouvée"));
+        //echo json_encode(array("message" => "facture non trouvée"));
+        $code = 404;
+        $data = "facture non trouvée";
     }
  
  }
@@ -50,9 +54,16 @@ try {
 catch (PDOException $e) {
  
     // set response code - 503 service unavailable
-    http_response_code(503);
+    //http_response_code(503);
  
     // tell the user
-    echo json_encode(array("message" => "Il n'a pas ete possible de modifier la facture."));
+    //echo json_encode(array("message" => "Il n'a pas ete possible de modifier la facture."));
+    $code = 503;
+    $data = "il n a pas ete possible de modifier la facture";
 }
+
+$_SESSION["update"]=$data;
+$_SESSION["code"]=$code;
+header("Location: http://localhost/apiFacture/facture/resultatUpdate.php");
+exit();
 ?>

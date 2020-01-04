@@ -1,5 +1,4 @@
 <?php
-
 // required header
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -27,15 +26,13 @@ if($num>0){
     $fournisseurs_arr["Enregistrements"]=array();
     // retrieve our table contents
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        // extract row
-        // this will make $row['name'] to
-        // just $name only
+
         extract($row);
  
         $fournisseur_item=array(
-            "Identifiant du Fournisseur" => $idFournisseur,
-            "Nom du fournisseur" => $nomFournisseur,
-            "Adresse du fournisseur"=>$adresseFournisseur,
+            "identifiant" => $idFournisseur,
+            "Fournisseur" => $nomFournisseur,
+            "Adresse"=>$adresseFournisseur,
         );
         
         array_push($fournisseurs_arr["Enregistrements"], $fournisseur_item);
@@ -46,7 +43,7 @@ if($num>0){
     http_response_code(200);
  
     // show fournisseurs data in json format
-    echo "Liste de l'ensemble des Fournisseurs ", json_encode($fournisseurs_arr), "\n";
+    echo json_encode($fournisseurs_arr);
 }
 else{
  

@@ -1,0 +1,6 @@
+
+{
+    "deploy": {
+      "webroot": "/facture/read.php"
+    }
+  }
